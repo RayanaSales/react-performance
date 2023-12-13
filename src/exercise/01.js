@@ -5,11 +5,21 @@ import * as React from 'react'
 
 /**
  * This lazy mode will only renders the default component from the file - and must be a component.
- * 
- * The coolest thing about it, is that the user can start interacting with the app earlier 
+ *
+ * The coolest thing about it, is that the user can start interacting with the app earlier
  * and dont need to wait everything to be loaded before being able to interact
  */
-const Globe = React.lazy(() => import('../globe'))
+const Globe = React.lazy(() => import(/* webpackPrefetch: true */ '../globe'))
+/**
+ * THE webpackPrefetch MAGIC COMMENT 
+ * 
+ * Suppose that you are using webpack, and you are pretty sure the user is going to click on 
+ * certain button. So, you wanna pre-load it before the user actually click it. So you can 
+ * use the webpackPrefetch magic comment.
+ * 
+ * This will tell to the browser: "I want you to load all the link modules <Link /> required 
+ * to load this module”. This way the browser will do it as soon he is not busy anymore.
+ */
 
 function App() {
   const [showGlobe, setShowGlobe] = React.useState(false)
